@@ -10,6 +10,7 @@ public class Stoke {
         Stoke.countOfNumbers = countOfNumbers;
     }
     static public int countOfNumbers = 0;
+
     public static Queue<Integer> stokeQueue = new Queue<Integer>() {
         @Override
         public boolean add(Integer integer) {

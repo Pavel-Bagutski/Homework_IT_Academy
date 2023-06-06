@@ -1,9 +1,4 @@
 package Homework.Task58;
-//Есть 3 производителя и 2 потребителя, все разные потоки и работают все одновременно. Есть очередь с 200 элементами.
-// Производители добавляют случайное число от 1..100. а потребители берут эти числа. Если в очереди элементов >= 100
-// производители спят,-если нет элементов в очереди — потребители спят. Если элементов стало <= 80, производители
-// просыпаются. Все это работает до тех пор, пока обработанных элементов не станет 10000, только потом программа
-// завершается.
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -19,12 +14,9 @@ public class Main {
 
         threadGenerate1.start();
         threadConsumer1.start();
-        threadGenerate1.start();
-        threadConsumer1.start();
-        threadGenerate1.start();
-
-
-
+        threadGenerate2.start();
+        threadConsumer2.start();
+        threadGenerate3.start();
 
     }
 }

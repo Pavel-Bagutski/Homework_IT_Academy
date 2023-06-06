@@ -5,13 +5,25 @@ public class Consumer extends Thread {
 
     @Override
     public void run() {
-        while (Stoke.countOfNumbers < 10_000) {
-            if (Stoke.stokeQueue.size() >= 0) {
-                Stoke.stokeQueue.remove();
-                Stoke.countOfNumbers = Stoke.countOfNumbers + 1;
-                System.out.println("delete");
-                testCount++;
+        synchronized (this) {
+            while (Stoke.countOfNumbers < 10_000) {
+                if (Stoke.stokeQueue.size() == 0)
+                    try {
+                        Thread.currentThread().wait();
+                        if (Stoke.stokeQueue.size() == 0) {
+                            Thread.currentThread().notifyAll();
+                            break;
+                        }
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
             }
+        }
+        if (Stoke.stokeQueue.size() >= 0) {
+            Stoke.stokeQueue.remove();
+            Stoke.countOfNumbers = Stoke.countOfNumbers + 1;
+            System.out.println("delete number from Queue");
+            testCount++;
         }
         System.out.println("counter = " + testCount);
     }
